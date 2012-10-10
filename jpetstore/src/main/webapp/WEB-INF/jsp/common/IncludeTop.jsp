@@ -2,7 +2,7 @@
 <%@ taglib prefix="stripes"
 	uri="http://stripes.sourceforge.net/stripes.tld"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 	
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -25,15 +25,88 @@
 
 <div id="Header">
 	<div id="Logo">
-		<div id="LogoContent">
-			<stripes:link beanclass="org.mybatis.jpetstore.web.actions.CatalogActionBean">
-				<img src="../images/logo-topbar.gif" />
-			</stripes:link>
-		</div>
+	<div id="LogoContent">
+		<stripes:link beanclass="org.mybatis.jpetstore.web.actions.CatalogActionBean">
+			<img src="../images/logo-topbar.gif" />
+		</stripes:link>
+	</div>
 	</div>
 	<div id="Menu">
-		<div id="MenuContent">
-			
-		</div>
-	</div>
-</div>
+	<div id="MenuContent">
+		<stripes:link beanclass="org.mybatis.jpetstore.web.actions.CartActionBean" 
+					event="viewCart">
+			<img align="middle"" name="img_cart" src="../images/cart.gif" />
+		</stripes:link>
+		<img align="middle" src="../images/separator.gif" />
+		<c:if test="${sessionScope.accountBean == null}">
+			<stripes:link beanclass="org.mybatis.jpetstore.web.actions.AccountActionBean"
+						event="signonForm">
+				Sign In
+			</stripes:link>
+		</c:if>
+		<c:if test="${sessionScope.accountBean != null }">
+			<c:if test="${!sessionScope.accountBean.authenticated}">
+				<stripes:link beanclass="org.mybatis.jpetstore.web.actions.AccountActionBean"
+							event="signonForm">
+					Sign In
+				</stripes:link>
+			</c:if>
+		</c:if>
+		<c:if test="${sessionScope.accountBean != null}">
+			<c:if test="${sessionScope.accountBean.athenticated}">
+				<stripes:link beanclass="org.mybatis.jpetstore.web.actions.AccountActionBean"
+							event="signOff">
+					Sign Out
+				</stripes:link>
+				<img align="middle" src="../images/separator.gif"/>
+				<stripes:link beanclass="org.mybatis.jpetstore.web.actions.AccountActionBean"
+							event="editAccountForm">
+					My Account
+				</stripes:link>
+			</c:if>
+		</c:if>
+		<img align="middle" src="../images/separator.git" />
+		<a href="../help.html">?</a>
+	</div><!-- End div id="MenuContent" -->
+	</div><!-- End div id="Menu" -->
+	
+	<div id="Search">
+	<div id="SearchContent">
+		<stripes:form beanclass="org.mybatis.jpetstore.web.actions.CatalogActionBean">
+			<stripes:text name="keyword" size="14" />
+			<stripes:submit name="searchProducts" value="Search"/>
+		</stripes:form>
+	</div><!-- End div id="SearchContent" -->
+	</div><!-- End div id="Search" -->
+	
+	<div id="QuickLinks">
+		<stripes:link beanclass="org.mybatis.jpetstore.web.actions.CatalogActionBean"
+					event="viewCategory">
+			<stripes:param name="categoryId" value="FISH" />
+			<img src="../images/sm_fish.gif"/>
+		</stripes:link><img src="../images/separator.gif" />
+		<stripes:link beanclass="org.mybatis.jpetstore.web.actions.CatalogActionBean"
+					event="viewCategory">
+			<stripes:param name="categoryId" value="DOGS" />
+			<img src="../images/sm_dogs.gif"/>
+		</stripes:link><img src="../images/separator.gif" />
+		<stripes:link beanclass="org.mybatis.jpetstore.web.actions.CatalogActionBean"
+					event="viewCategory">
+			<stripes:param name="categoryId" value="REPTILES" />
+			<img src="../images/sm_reptiles.gif"/>
+		</stripes:link><img src="../images/separator.gif" />
+		<stripes:link beanclass="org.mybatis.jpetstore.web.actions.CatalogActionBean"
+					event="viewCategory">
+			<stripes:param name="categoryId" value="CATS" />
+			<img src="../images/sm_cats.gif"/>
+		</stripes:link><img src="../images/separator.gif" />
+			<stripes:link beanclass="org.mybatis.jpetstore.web.actions.CatalogActionBean"
+					event="viewCategory">
+			<stripes:param name="categoryId" value="BIRDS" />
+			<img src="../images/sm_birds.gif"/>
+		</stripes:link>
+	</div><!-- End div id="QuickLinks" -->
+</div><!-- End div id="Header" -->
+
+<div id="Content">
+	<stripes:messages />

@@ -139,7 +139,7 @@ public class AccountActionBean extends AbstractActionBean {
 		}
 	}
 	
-	public Resolution sigoff(){
+	public Resolution signoff(){
 		context.getRequest().getSession().invalidate();
 		clear();
 		return new RedirectResolution(CatalogActionBean.class);
