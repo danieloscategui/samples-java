@@ -9,8 +9,6 @@ import javax.servlet.http.HttpSession;
 import org.mybatis.jpetstore.domain.Order;
 import org.mybatis.jpetstore.service.OrderService;
 
-import com.sun.org.apache.regexp.internal.recompile;
-
 import net.sourceforge.stripes.action.ForwardResolution;
 import net.sourceforge.stripes.action.Resolution;
 import net.sourceforge.stripes.action.SessionScope;
