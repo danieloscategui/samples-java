@@ -53,7 +53,7 @@
 			</c:if>
 		</c:if>
 		<c:if test="${sessionScope.accountBean != null}">
-			<c:if test="${sessionScope.accountBean.athenticated}">
+			<c:if test="${sessionScope.accountBean.authenticated}">
 				<stripes:link beanclass="org.mybatis.jpetstore.web.actions.AccountActionBean"
 							event="signOff">
 					Sign Out
