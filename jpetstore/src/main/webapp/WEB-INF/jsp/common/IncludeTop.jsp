@@ -65,7 +65,7 @@
 				</stripes:link>
 			</c:if>
 		</c:if>
-		<img align="middle" src="../images/separator.git" />
+		<img align="middle" src="../images/separator.gif" />
 		<a href="../help.html">?</a>
 	</div><!-- End div id="MenuContent" -->
 	</div><!-- End div id="Menu" -->

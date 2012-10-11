@@ -1,6 +1,5 @@
 package org.mybatis.jpetstore.web.actions;
 
-import java.io.Serializable;
 import java.util.List;
 
 import org.mybatis.jpetstore.domain.Category;
@@ -18,7 +17,7 @@ public class CatalogActionBean extends AbstractActionBean {
 
 	private static final long serialVersionUID = 1589633566124386722L;
 	
-	private static final String MAIN = "/WEB_INF/jsp/catalog/Main.jsp";
+	private static final String MAIN = "/WEB-INF/jsp/catalog/Main.jsp";
 	private static final String VIEW_CATEGORY = "/WEB-INF/jsp/catalog/Category.jsp";
 	private static final String VIEW_PRODUCT = "/WEB-INF/jsp/catalog/Product.jsp";
 	private static final String VIEW_ITEM = "/WEB-ING/jsp/catalog/Item.jsp";

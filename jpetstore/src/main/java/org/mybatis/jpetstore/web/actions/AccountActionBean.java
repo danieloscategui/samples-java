@@ -1,6 +1,5 @@
 package org.mybatis.jpetstore.web.actions;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -27,7 +26,7 @@ public class AccountActionBean extends AbstractActionBean {
 
 	private static final String NEW_ACCOUNT = "/WEB_INF/jsp/account/NewAccountForm.jsp";
 	private static final String EDIT_ACCOUNT = "/WEB-INF/jsp/account/EditAccountForm.jsp";
-	private static final String SIGNON = "/WEB-INF/jsp/account/SginonForm.jsp";
+	private static final String SIGNON = "/WEB-INF/jsp/account/SignonForm.jsp";
 	
 	private static final List<String> LANGUAGE_LIST;
 	private static final List<String> CATEGORY_LIST;
