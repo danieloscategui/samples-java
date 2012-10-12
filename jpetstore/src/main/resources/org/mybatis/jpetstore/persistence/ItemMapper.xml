@@ -44,7 +44,7 @@
 			ATTR4 as attribute4,
 			ATTR5 as attribute5,
 			QTY as quantity
-		FROM ITEM I, INVENTORY V PRODUCT P
+		FROM ITEM I, INVENTORY V, PRODUCT P
 		WHERE P.PRODUCTID = I.PRODUCTID
 		AND I.ITEMID = V.ITEMID
 		AND I.ITEMID = #{value}

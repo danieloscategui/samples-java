@@ -58,7 +58,7 @@ public class OrderService {
 		
 		for (int i = 0; i < order.getLineItems().size(); i++) {
 			LineItem lineItem = (LineItem)order.getLineItems().get(i);
-			Item item = itemMapper.getIem(lineItem.getItemId());
+			Item item = itemMapper.getItem(lineItem.getItemId());
 			item.setQuantity(itemMapper.getInventoryQuantity(lineItem.getItemId()));
 			lineItem.setItem(item);
 		}

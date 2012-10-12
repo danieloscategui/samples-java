@@ -13,13 +13,13 @@
 
 <table>
 	<tr>
-		<td>${actionBean.product.descrption}</td>
+		<td>${actionBean.product.description}</td>
 	</tr>
 	<tr>
 		<td><b>${actionBean.item.itemId}</b></td>
 	</tr>
 	<tr>
-		<td><b><font size="">${actionBean.item.attribute1}
+		<td><b><font size="4">${actionBean.item.attribute1}
 		${actionBean.item.attribute2} ${actionBean.item.attribute3}
 		${actionBean.item.attribute4} ${actionBean.item.attribute5}
 		${actionBean.product.name}</font></b></td>

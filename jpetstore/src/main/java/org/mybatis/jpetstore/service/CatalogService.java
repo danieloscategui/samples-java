@@ -47,7 +47,7 @@ public class CatalogService {
 	}
 	
 	public Item getItem(String itemId){
-		return itemMapper.getIem(itemId);
+		return itemMapper.getItem(itemId);
 	}
 	
 	public boolean isItemInStock(String itemId){
