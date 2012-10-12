@@ -6,7 +6,7 @@ import java.math.BigDecimal;
 public class Item implements Serializable{
 	private static final long serialVersionUID = -5037649903083767059L;
 	
-	private String itemid;
+	private String itemId;
 	private String productId;
 	private BigDecimal listPrice;
 	private BigDecimal unitCost;
@@ -19,11 +19,11 @@ public class Item implements Serializable{
 	private String attribute5;
 	private Product product;
 	private int quantity;
-	public String getItemid() {
-		return itemid;
+	public String getItemId() {
+		return itemId;
 	}
-	public void setItemid(String itemid) {
-		this.itemid = itemid;
+	public void setItemId(String itemId) {
+		this.itemId = itemId;
 	}
 	public String getProductId() {
 		return productId;
@@ -98,7 +98,7 @@ public class Item implements Serializable{
 		this.quantity = quantity;
 	}
 	public String toString(){
-		return "("+ getItemid()+ "-" + getProductId() + ")";
+		return "("+ getItemId()+ "-" + getProductId() + ")";
 	}
 	
 	

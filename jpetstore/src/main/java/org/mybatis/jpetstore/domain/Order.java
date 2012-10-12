@@ -7,6 +7,8 @@ import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
+import org.mybatis.jpetstore.domain.Account;
+
 public class Order implements Serializable {
 	
 	private static final long serialVersionUID = -639942889654948366L;
@@ -37,11 +39,7 @@ public class Order implements Serializable {
 	private String cardtype;
 	private String locale;
 	private String status;
-	
-	
 	private List<LineItem> lineItems = new ArrayList<LineItem>();
-	
-	
 	
 	public String getExpiryDate() {
 		return expiryDate;

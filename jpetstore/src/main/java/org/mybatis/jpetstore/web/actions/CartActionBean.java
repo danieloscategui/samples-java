@@ -69,7 +69,7 @@ public class CartActionBean extends AbstractActionBean{
 		Iterator<CartItem> cartItems = getCart().getAllCartItems();
 		while (cartItems.hasNext()) {
 			CartItem cartItem = (CartItem)cartItems.next();
-			String itemId = cartItem.getItem().getItemid();
+			String itemId = cartItem.getItem().getItemId();
 			try {
 				int quantity = Integer.parseInt((String) request.getParameter(itemId));
 				getCart().setQuantityByItemId(itemId, quantity);

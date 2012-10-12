@@ -2,15 +2,15 @@ package org.mybatis.jpetstore.web.actions;
 
 import java.util.List;
 
-import org.mybatis.jpetstore.domain.Category;
-import org.mybatis.jpetstore.domain.Item;
-import org.mybatis.jpetstore.domain.Product;
-import org.mybatis.jpetstore.service.CatalogService;
-
 import net.sourceforge.stripes.action.DefaultHandler;
 import net.sourceforge.stripes.action.ForwardResolution;
 import net.sourceforge.stripes.action.SessionScope;
 import net.sourceforge.stripes.integration.spring.SpringBean;
+
+import org.mybatis.jpetstore.domain.Category;
+import org.mybatis.jpetstore.domain.Item;
+import org.mybatis.jpetstore.domain.Product;
+import org.mybatis.jpetstore.service.CatalogService;
 
 @SessionScope
 public class CatalogActionBean extends AbstractActionBean {
@@ -108,7 +108,7 @@ public class CatalogActionBean extends AbstractActionBean {
 	public ForwardResolution viewCategory(){
 		if (categoryId != null){
 			productList = catalogService.getProductListByCategory(categoryId);
-			category = catalogService.getCategory(categoryId);
+			category = catalogService.getCategory(categoryId); 
 		}
 		return new ForwardResolution(VIEW_CATEGORY);
 	}

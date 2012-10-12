@@ -15,7 +15,7 @@ public class Product implements Serializable{
 		return productId;
 	}
 	public void setProductId(String productId) {
-		this.productId = productId;
+		this.productId = productId.trim();
 	}
 	public String getCategoryId() {
 		return categoryId;
