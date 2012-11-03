@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.transrowi.taller.persistence.FamiliaMapper">
+	<cache />
+	
+	<select id="getFamilia" parameterType="integer" resultType="Familia">
+		select 
+			familiaid as familiaId,
+			grupoid as grupoid,
+			familiacodigo as familiaCodigo,
+			descripcion
+		from familia
+		where familiaid = #{familiaId}
+	</select>
+	
+	<select id="getFamiliaList" resultType="Familia">
+		select 
+			familiaid as familiaId,
+			grupoid as grupoid,
+			familiacodigo as familiaCodigo,
+			descripcion
+		from familia
+	</select>
+
+	<select id="searchFamiliaList" parameterType="string" resultType="Familia">
+		select 
+			familiaid as familiaId,
+			grupoid as grupoid,
+			familiacodigo as familiaCodigo,
+			descripcion
+		from familia
+		where lower(descripcion) like #{value}	
+	</select>
+	
+	<select id="searchFamiliaListByCodigo" parameterType="string" resultType="Familia">
+		select 
+			familiaid as familiaId,
+			grupoid as grupoid,
+			familiacodigo as familiaCodigo,
+			descripcion
+		from familia
+		where lower(familiacodigo) like #{value}	
+	</select>
+	
+	<select id="getFamiliaListByGrupo" parameterType="integer" resultType="Familia">
+		select 
+			familiaid as familiaId,
+			grupoid as grupoid,
+			familiacodigo as familiaCodigo,
+			descripcion
+		from familia
+		where grupoid = #{grupoId}
+	</select>
+	
+	<select id="getMaxFamiliaIdByGrupo" parameterType="integer" resultType="integer">
+		select max(familiaid)
+		from familia
+		where grupoid = #{value}
+		
+	</select>
+	<insert id="insertFamilia" parameterType="Familia">
+		insert into 
+			familia(familiaid, grupoid, familiacodigo, descripcion) 
+		values
+			(#{familiaId}, #{grupoId},#{familiaCodigo}, #{descripcion});
+	</insert>
+	
+	<update id="updateFamilia" parameterType="Familia">
+		update familia set 
+			descripcion = #{descripcion}
+		where familiaid = #{familiaId}
+	</update>
+</mapper>

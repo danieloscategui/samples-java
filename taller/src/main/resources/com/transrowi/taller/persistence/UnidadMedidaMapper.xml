@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.transrowi.taller.persistence.UnidadMedidaMapper">
+	<cache />
+	
+	<select id="getUnidadMedida" parameterType="integer" resultType="UnidadMedida">
+		select 
+			unidadmedidaid,
+			descripcion,
+			acronimo
+		from unidadmedida
+		where unidadmedidaid  = #{unidadmedidaId }
+	</select>
+	
+	<select id="getUnidadMedidaList" resultType="UnidadMedida">
+		select 
+			unidadmedidaid,
+			descripcion,
+			acronimo
+		from unidadmedida
+	</select>
+	
+	<select id="searchUnidadMedidaList" parameterType="string" resultType="UnidadMedida">
+		select 
+			unidadmedidaid,
+			descripcion,
+			acronimo
+		from unidadmedida
+		where lower(descripcion) like #{value}	
+	</select>
+	
+	<insert id="insertUnidadMedida" parameterType="UnidadMedida">
+		insert into unidadmedida
+			(unidadmedidaid, descripcion, acronimo) 
+		values
+			(#{unidadMedidaId}, #{descripcion}, #{acronimo});
+	</insert>
+	
+	<update id="updateUnidadMedida" parameterType="UnidadMedida">
+		update unidamedida set 
+			descripcion = #{descripcion},
+			acronimo = #{acronimo}
+		where unidadmedidaid= #{unidadMedidaId}
+	</update>
+</mapper>

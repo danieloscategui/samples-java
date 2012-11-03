@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.transrowi.taller.persistence.PedidoAlmacenMapper">
+
+	<cache />
+	
+	<select id="getPedidoAlmacen" parameterType="long" resultType="PedidoAlmacen">
+		select 
+			pedidoid,
+			fechaPedido,
+			solicitadoPor,
+			fechaAutorizacion,
+			autorizadoPor,
+			fechaAtencion,
+			atendidoPor,
+			estado,
+			observacion
+		from pedidoalmacen
+		where pedidoId = #{pedidoId}
+	</select>
+	
+	<insert id="insertPedidoAlmacen" parameterType="PedidoAlmacen">
+		insert into pedidoalmacen
+			(pedidoid, fechaPedido, solicitadoPor, estado, observacion)
+		values
+			(#{pedidoId}, #{fechaPedido}, #{solicitadoPor}, #{estado}, #{observacion})
+	</insert>
+	
+	<update id="updatePedidoAlmacenAutorizado" parameterType="PedidoAlmacen">
+		update pedidoalmacen set 
+			fechaautorizacion = #{fechaAutorizacion},
+			autorizadopor = #{autorizadoPor},
+			estado = #{estado}
+		where pedidoid = #{pedidoId}
+	</update>
+	
+	<update id="updatePedidoAlmacenAtendido" parameterType="PedidoAlmacen">
+		update pedidoalmacen set 
+			fechaatencion = #{fechaAtencion},
+			atendidopor = #{atendidoPor},
+			estado = #{estado}
+		where pedidoid = #{pedidoId}
+	</update>
+	
+</mapper>

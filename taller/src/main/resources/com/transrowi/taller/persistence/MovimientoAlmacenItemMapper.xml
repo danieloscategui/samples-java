@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.transrowi.taller.persistence.MovimientoAlmacenItemMapper">
+
+	<cache />
+	
+	<select id="getMovimientoAlmacenItemsByMovimientoId" parameterType="long" resultType="MovimientoAlmacenItem">
+		select 
+			movimientoId,
+			itemId,
+			unidadMedidaId,
+			cantidadMovimiento,
+			costoUnitario
+		from movimientoalmacenitem
+		where movimientoId = #{movimientoId}
+	</select>
+	
+	<insert id="insertMovimientoAlmacenItem" parameterType="MovimientoAlmacenItem">
+		insert into movimientoalmacenitem 
+			(movimientoId, itemId,	unidadMedidaId,	cantidadMovimiento, costoUnitario)
+		values
+			(#{movimientoId}, #{itemId}, #{unidadMedidaId}, #{cantidadMovimiento}, #{costoUnitario})
+	</insert>
+	
+</mapper>

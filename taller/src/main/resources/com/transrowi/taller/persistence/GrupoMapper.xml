@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.transrowi.taller.persistence.GrupoMapper">
+	<cache />
+	
+	<select id="getGrupo" parameterType="integer" resultType="Grupo">
+		select 
+			grupoid as grupoId,
+			grupocodigo as grupoCodigo,
+			descripcion
+		from grupo
+		where grupoid = #{grupoId}
+	</select>
+	
+	<select id="getGrupoList" resultType="Grupo">
+		select 
+			grupoid as grupoId,
+			grupocodigo as grupoCodigo,
+			descripcion
+		from grupo	
+	</select>
+	
+	<select id="searchGrupoList" parameterType="string" resultType="Grupo">
+		select 
+			grupoid as grupoId,
+			grupocodigo as grupoCodigo,
+			descripcion
+		from grupo
+		where lower(descripcion) like #{value}	
+	</select>
+	
+	<select id="searchGrupoListByCodigo" parameterType="string" resultType="Grupo">
+		select 
+			grupoid as grupoId,
+			grupocodigo as grupoCodigo,
+			descripcion
+		from grupo
+		where lower(grupocodigo) like #{value} 
+	</select>
+	
+	<select id="getMaxGrupoId" resultType="integer">
+		select max(grupoId)
+		from grupo
+	</select>
+	
+	<insert id="insertGrupo" parameterType="Grupo">
+		insert into 
+			grupo(grupoid, grupocodigo, descripcion) 
+		values
+			(#{grupoId}, #{grupoCodigo}, #{descripcion})
+	</insert>
+	
+	<update id="updateGrupo" parameterType="Grupo">
+		update grupo set 
+			descripcion = #{descripcion}
+		where grupoid = #{grupoId}
+	</update>
+</mapper>

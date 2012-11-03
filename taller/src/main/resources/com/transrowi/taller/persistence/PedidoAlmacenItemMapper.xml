@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.transrowi.taller.persistence.PedidoAlmacenItemMapper">
+
+	<cache />
+	
+	<select id="getPedidoAlmacenItemsByPedidoId" parameterType="integer" resultType="PedidoAlmacenItem">
+
+		select 
+			pedidoalmacenitem.pedidoId,
+			pedidoalmacenitem.itemId,
+			pedidoalmacenitem.cantidadsolicitada,
+			pedidoalmacenitem.unidadmedidaId,
+			
+			item.itemId as "item.itemId",
+			item.itemCodigo as "item.itemCodigo",
+			item.descripcion as "item.descripcion",
+			
+			unidadmedida.unidadmedidaid as "unidadMedida.unidadMedidaId",
+			unidadmedida.descripcion as "unidadMedida.descripcion",
+			unidadmedida.acronimo as "unidadMedida.acronimo"
+			
+		from pedidoalmacenitem, item, unidadmedida
+		where   pedidoalmacenitem.itemid =  item.itemid
+		and pedidoalmacenitem.unidadmedidaid =  unidadmedida.unidadmedidaid 
+		and pedidoid = #{pedidoId}
+		order by item.itemcodigo asc; 
+	</select>
+	
+	<insert id="insertPedidoAlmacenItem" parameterType="PedidoAlmacenItem">
+		insert into pedidoalmacenitem 
+			(pedidoId, itemId, unidadMedidaId, cantidadSolicitada)
+		values
+			(#{pedidoId}, #{itemId},#{unidadMedidaId},#{cantidadSolicitada})
+	</insert>
+	
+	<update id="updatePedidoAlmacenItemAutorizado" parameterType="PedidoAlmacenItem">
+		update pedidoalmacenitem set
+			cantidadAutorizada = #{cantidadAutorizada}
+		where pedidoid = #{pedidoId} and itemid = #{itemId}
+	</update>
+	
+	<update id="updatePedidoAlmacenItemAtendido" parameterType="PedidoAlmacenItem">
+		update pedidoalmacenitem set
+			cantidadAtendida = #{cantidadAtendida}
+		where pedidoid = #{pedidoId} and itemid = #{itemId}	
+	</update>	
+</mapper>

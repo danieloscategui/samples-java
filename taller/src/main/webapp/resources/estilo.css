@@ -1,0 +1,197 @@
+/* CSS Document App Gestion de Usuarios */
+body {
+	font: 75%/1.7 Verdana, Arial, Helvetica, sans-serif;
+	min-width: 670px;
+	width: 100%;
+	margin: 0 auto;
+	padding: 0ex;
+	color: #333;
+	background-color: #FFF;
+}
+
+#Header {
+	height: 50px;
+	margin: 0;
+	padding: 0;
+	background:#6699CC;
+	margin-bottom: 2em;
+}
+#Header p{
+	height: 50%;
+	text-align:center;
+	font-weight: bold;
+	padding: 13px 0;
+	margin: 0 auto;
+	color:#000000;
+	width: 80%;
+	vertical-align: middle;
+}
+#Content {
+	text-align: center;
+	/*padding-bottom: 20px;*/
+	margin: 0;
+	padding: 0ex;
+	width: 99%;
+	color: #333;
+	background-color: #FFF;
+	border-width: 0;
+}
+
+#Menu {
+  width: 33%;
+  height: 9ex;
+  margin: 0ex 0ex 0ex 0ex;
+  padding: 0ex 0ex 0ex 0ex;
+  border-width: 0ex 0ex .3ex 0px;
+  border-style: solid;
+  border-color: #ccc;
+  float: left;
+  background-color: #000;
+  color: #eaac00;
+  text-decoration: none;
+  font-family: helvetica, tahoma, arial, verdana, sans-serif;
+  text-align: center;
+  line-height: 9ex;
+  voice-family: "\"}\"";
+  voice-family: inherit;
+  height: 9ex;
+}
+
+.login {
+	margin: 0 auto;
+	width: 25%;
+	padding: 0;
+	border-collapse: collapse;
+	border: 1px solid #555;
+}
+.login th{
+	width: 30%;
+	text-align: left;
+	padding: 5px;
+	border-bottom: 1px solid #555;
+	border-right: 1px solid #555;
+}
+.login td span{
+	font-size:80%;
+	color: #000;
+	padding: .5em;
+	width: 30%;
+	text-align: left;
+	padding: 5px;
+	font-weight: bold;
+}
+.login td {
+	padding: 5px;
+	border-bottom: .5px solid #555;
+	margin: 0;
+	text-align: left;
+}
+.txt{
+	
+}
+.btn{
+}
+.tablao{
+  	border-spacing: 0px;
+	padding: 0;
+	border-collapse: collapse;
+	border: 1px solid #555;
+}/*
+table{
+  border: 0px solid black;
+  border-spacing: 0px;
+}
+
+table thead tr{
+  font-family: Arial, monospace;
+  font-size: 14px;
+}
+
+table thead tr th{
+  border-bottom: 2px solid black;
+  border-top: 1px solid black;
+  margin: 0px;
+  padding: 2px;
+  background-color: #cccccc;
+}
+
+table tr {
+  font-family: arial, monospace;
+  color: black;
+  font-size:12px;
+  background-color: white;
+}
+
+table tr.odd {
+  background-color: #AAAAAA;
+}
+
+table tr td, th{
+  border-bottom: 1px solid black;
+  padding: 2px;
+}
+*/
+.tabla-blue {
+	background: #D3E4E5;
+	border: 1px solid gray;
+	border-collapse: collapse;
+	color: #FFF;
+	font: normal 11px verdana, arial, helvetica, sans-serif;
+}
+.th-td{
+	color:#363636;
+ 	padding:.4em .2em;
+}
+.tr { 
+	border:1px solid gray;
+}
+table { 
+	background:#D3E4E5;
+ 	border:1px solid gray;
+ 	border-collapse:collapse;
+ 	color:#fff;
+ 	font:normal 11px verdana, arial, helvetica, sans-serif;
+ 	a
+}
+.alignCenter{
+	text-align: center;
+}
+.caption { 
+	border:1px solid #5C443A;
+ 	color:#5C443A;
+ 	font-weight:bold;
+ 	padding: 1px 2px;
+ 	text-transform:uppercase;
+}
+
+td, th { color:#363636;
+ padding:.2em .4em;
+ margin: 0;
+}
+tr { border:1px solid gray;
+}
+thead{
+	background:#99BCBF;
+}
+tbody tr:hover { background:#99BCBF;
+ border:1px solid #03476F;
+ color:#000000;
+}
+
+#PoweredBy {
+  margin: 0;
+  padding: 0;
+  background-color: #6699CC;
+  height: 3ex;
+  margin-bottom: 2ex;
+}
+
+#PoweredBy p{
+	height: 5ex;
+	text-align: right;
+	font-weight: bold;
+	vertical-align: middle;
+	font-size: 80%;
+	margin-right: 2ex;
+	color: #000;
+}

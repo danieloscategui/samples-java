@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.transrowi.taller.persistence.ItemMapper">
+	<cache />
+	
+	<select id="getItem" parameterType="integer" resultType="Item">
+	
+		select 
+			item.itemid as itemId, 
+			item.familiaid as familiaId,
+			item.itemcodigo as itemCodigo,
+			item.unidadmedidaid as unidadMedidaId,
+			unidadmedida.unidadmedidaid as "unidadMedida.unidadMedidaId",
+			unidadmedida.descripcion as "unidadMedida.descripcion",
+			unidadmedida.acronimo as "unidadMedida.acronimo",
+			item.descripcion as descripcion,
+			item.preciolista precioLista,
+			item.costounitario as costoUnitario
+		from item, unidadmedida
+		where item.unidadmedidaid = unidadmedida.unidadmedidaid
+		and itemid = #{itemId}
+	</select>
+	
+	<select id="getItemList" resultType="Item">
+		select 
+			item.itemid as itemId, 
+			item.familiaid as familiaId,
+			item.itemcodigo as itemCodigo,
+			item.unidadmedidaid as unidadMedidaId,
+			unidadmedida.unidadmedidaid as "unidadMedida.unidadMedidaId",
+			unidadmedida.descripcion as "unidadMedida.descripcion",
+			unidadmedida.acronimo as "unidadMedida.acronimo",
+			item.descripcion as descripcion,
+			item.preciolista precioLista,
+			item.costounitario as costoUnitario
+		from item, unidadmedida
+		where item.unidadmedidaid = unidadmedida.unidadmedidaid
+	</select>
+	
+	<select id="getItemListByFamilia" parameterType="integer" resultType="Item">
+		select 
+			item.itemid as itemId, 
+			item.familiaid as familiaId,
+			item.itemcodigo as itemCodigo,
+			item.unidadmedidaid as unidadMedidaId,
+			unidadmedida.unidadmedidaid as "unidadMedida.unidadMedidaId",
+			unidadmedida.descripcion as "unidadMedida.descripcion",
+			unidadmedida.acronimo as "unidadMedida.acronimo",
+			item.descripcion as descripcion,
+			item.preciolista precioLista,
+			item.costounitario as costoUnitario
+		from item, unidadmedida
+		where item.unidadmedidaid = unidadmedida.unidadmedidaid
+		and item.familiaid = #{familiaId}
+	</select>
+	
+	<select id="searchItemList" parameterType="string" resultType="Item">
+		select 
+			item.itemid as itemId, 
+			item.familiaid as familiaId,
+			item.itemcodigo as itemCodigo,
+			item.unidadmedidaid as unidadMedidaId,
+			unidadmedida.unidadmedidaid as "unidadMedida.unidadMedidaId",
+			unidadmedida.descripcion as "unidadMedida.descripcion",
+			unidadmedida.acronimo as "unidadMedida.acronimo",
+			item.descripcion as descripcion,
+			item.preciolista precioLista,
+			item.costounitario as costoUnitario
+		from item, unidadmedida
+		where item.unidadmedidaid = unidadmedida.unidadmedidaid
+		and lower(item.descripcion) like #{value}	
+	</select>
+	
+	<select id="searchItemListByCodigo" parameterType="string" resultType="Item">
+		select 
+			item.itemid as itemId, 
+			item.familiaid as familiaId,
+			item.itemcodigo as itemCodigo,
+			item.unidadmedidaid as unidadMedidaId,
+			unidadmedida.unidadmedidaid as "unidadMedida.unidadMedidaId",
+			unidadmedida.descripcion as "unidadMedida.descripcion",
+			unidadmedida.acronimo as "unidadMedida.acronimo",
+			item.descripcion as descripcion,
+			item.preciolista precioLista,
+			item.costounitario as costoUnitario
+		from item, unidadmedida
+		where item.unidadmedidaid = unidadmedida.unidadmedidaid
+		and lower(item.itemcodigo) like #{value}	
+	</select>
+	
+	<select id="getMaxItemIdByFamilia" parameterType="integer" resultType="integer">
+		select max(itemid)
+		from item
+		where familiaid = #{value}
+	</select>
+	
+	<select id="getInventoryQuantity" parameterType="integer" resultType="bigdecimal">
+    	select cantidad as value
+		from inventario
+		where almacenid = 1
+		and itemid = #{itemId}
+  </select>
+	
+	<insert id="insertItem" parameterType="Item">
+		insert into item
+			(itemid, familiaid, itemcodigo, descripcion, unidadmedidaid) 
+		values
+			(#{itemId}, #{familiaId},#{itemCodigo},#{descripcion}, #{unidadMedidaId})
+	</insert>
+	
+	<update id="updateItem" parameterType="Item">
+		update Item set 
+			descripcion = #{descripcion},
+			preciolista = #{precioLista},
+			costounitario = #{costoUnitario}
+		where itemid= #{itemId}
+	</update>
+</mapper>
