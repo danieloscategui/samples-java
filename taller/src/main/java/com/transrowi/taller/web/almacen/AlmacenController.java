@@ -11,13 +11,13 @@ import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
-
-import sun.misc.Cleaner;
 
 import com.transrowi.taller.domain.Cart;
 import com.transrowi.taller.domain.Item;
@@ -25,6 +25,7 @@ import com.transrowi.taller.domain.PedidoAlmacen;
 import com.transrowi.taller.domain.PedidoAlmacenEstado;
 import com.transrowi.taller.service.AlmacenService;
 import com.transrowi.taller.web.almacen.form.FormPedidoAlmacen;
+import com.transrowi.taller.web.almacen.form.FormPedidoAlmacenValidator;
 import com.transrowi.taller.web.almacen.form.FormSearchItem;
 
 @Controller
@@ -37,6 +38,9 @@ public class AlmacenController {
 	
 	@Autowired
 	private AlmacenService almacenService;
+	@Autowired
+	private FormPedidoAlmacenValidator pedidoAlmacenValidator;
+	
 	
 	@ModelAttribute
 	public FormSearchItem getFormSearchItem(){
@@ -65,7 +69,8 @@ public class AlmacenController {
 	
 	
 	@RequestMapping(value="/almacen/searchAlmacenItem", method=RequestMethod.POST)
-	public String searchAlmacenItem(Model model, @ModelAttribute("fromSearchItem") FormSearchItem formSearchItem){
+	public String searchAlmacenItem(Model model, 
+									@ModelAttribute("fromSearchItem") FormSearchItem formSearchItem){
 		
 		List<Item> itemList = almacenService.searchItemList(formSearchItem.getKeyword());
 		model.addAttribute("itemList", itemList);
@@ -83,9 +88,17 @@ public class AlmacenController {
 	@RequestMapping(value="/almacen/confirmarPedido", method=RequestMethod.POST)
 	public String confirmarPedido(Model model,
 								@ModelAttribute("formPedidoAlmacen")FormPedidoAlmacen formPedidoAlmacen,
-								HttpServletRequest request,
-								SessionStatus status){
+								SessionStatus status,
+								BindingResult result,
+								HttpServletRequest request){
 		log.info("passing by confirmarPedido");
+		
+		pedidoAlmacenValidator.validate(formPedidoAlmacen, result);
+		
+		if (result.hasErrors()){
+			return NEW_PEDIDO_ALMACEN;
+		}
+		
 		HttpSession session = request.getSession();
 		Cart cart = (Cart)session.getAttribute("cart");
 		log.info(cart);
@@ -105,11 +118,26 @@ public class AlmacenController {
 
 		status.setComplete();
 		
-		pedidoAlmacen = null;
+		//pedidoAlmacen = null;
 		pedidoAlmacen = almacenService.getPedidoAlmacenById(pedidoAlmacenId);
 		
 		model.addAttribute("pedidoAlmacen", pedidoAlmacen);
 		
 		return "almacen/mostrarPedidoAlmacen";
 	}
+	
+	@RequestMapping(value="/almacen/listarPedidoAlmacenPendientes", method=RequestMethod.GET )
+	public String listarPedidoAlmacenPendientes(Model model){
+		List<PedidoAlmacen> pedidoAlmacenList = almacenService.getPedidoAlmacenByEstado(PedidoAlmacenEstado.PENDIENTE);
+		model.addAttribute("listaPedidoAlmacenPendientes", pedidoAlmacenList);
+		return "almacen/pedidosAlmacenPendientes";
+	}
+	
+	@RequestMapping(value="/almacen/verPedido", method=RequestMethod.GET)
+	public String verPedido(Model model, @RequestParam("pedidoId") String pedidoId){
+		PedidoAlmacen pedidoAlmacen = almacenService.getPedidoAlmacenById(Long.valueOf(pedidoId));
+		model.addAttribute("pedidoAlmacen", pedidoAlmacen);
+		return "almacen/mostrarPedidoAlmacen";
+	}
+	
 }

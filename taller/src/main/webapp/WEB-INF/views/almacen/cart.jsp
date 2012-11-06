@@ -30,7 +30,7 @@
   		<td>${cartItem.item.itemCodigo}</td>
   		<td>${cartItem.item.descripcion}</td>
   		<td>${cartItem.item.unidadMedida.acronimo}</td>
-  		<td><input name="cartItemList[${status.index}].cantidad" value="${cartItem.cantidad}"/></td>
+  		<td><input name="cartItemList[${status.index}].cantidad" value="${cartItem.cantidad}" /></td>
   		<td>${cartItem.inStock}</td>
   		<td>
   			<a href="<c:url value="removeItemFromCart?itemId=${cartItem.item.itemId}" />">Remove item</a>

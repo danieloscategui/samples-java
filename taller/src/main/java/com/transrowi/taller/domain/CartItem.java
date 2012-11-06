@@ -23,7 +23,18 @@ public class CartItem implements Serializable{
 		return cantidad;
 	}
 	public void setCantidad(BigDecimal cantidad) {
-		this.cantidad = cantidad;
+		
+		boolean lessZero;
+		
+		lessZero = cantidad.compareTo(BigDecimal.ZERO) < 0 ;
+		System.out.println("Compare: "+lessZero);
+
+		if (cantidad == null || lessZero == true ){
+			cantidad = BigDecimal.ZERO;
+			
+		} else {
+			this.cantidad = cantidad;
+		}
 		calculateTotal();
 	}
 	public boolean getInStock() {

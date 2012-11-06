@@ -39,7 +39,7 @@ public class MovimientoAlmacenMapperTest {
 		movimientoAlmacen.setFechaMovimiento(fechaMovimiento.getTime());
 		movimientoAlmacen.setAlmacenId(1);
 		movimientoAlmacen.setTipoMovimiento(1);//1 = entrada, 2= salida
-		movimientoAlmacen.setCorrelativo(1);
+		movimientoAlmacen.setCorrelativo(1L);
 		
 		log.info("insertMovimientoAlmacenTest");
 		
@@ -57,5 +57,19 @@ public class MovimientoAlmacenMapperTest {
 		log.info(TipoMovimientoAlmacen.ENTRADA);
 	}
 
+	@Test
+	public void testGetCorrelativoEntrada(){
+		log.info("testing getCorrelativoEntrada");
+		Long expected = 1L;
+		Long actual = movimientoAlmacenMapper.getCorrelativo(TipoMovimientoAlmacen.ENTRADA.getValue());
+		Assert.assertEquals(expected, actual);
+	}
 	
+	@Test
+	public void testGetCorrelativoSalida(){
+		log.info("testing getCorrelativoSAlida");
+		Long actual = movimientoAlmacenMapper.getCorrelativo(TipoMovimientoAlmacen.SALIDA.getValue());
+		//Assert.assertEquals(expected, actual);
+		Assert.assertNull(actual);
+	}
 }

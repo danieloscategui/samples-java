@@ -6,6 +6,8 @@ public class FormFamilia{
 	private int grupoId;
 	private String familiaCodigo;
 	private String descripcion;
+	
+	
 	public int getFamiliaId() {
 		return familiaId;
 	}

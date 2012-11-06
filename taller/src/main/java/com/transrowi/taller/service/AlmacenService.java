@@ -2,18 +2,26 @@ package com.transrowi.taller.service;
 
 
 import java.math.BigDecimal;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.transrowi.taller.domain.Item;
+import com.transrowi.taller.domain.MovimientoAlmacen;
+import com.transrowi.taller.domain.MovimientoAlmacenItem;
 import com.transrowi.taller.domain.PedidoAlmacen;
+import com.transrowi.taller.domain.PedidoAlmacenEstado;
 import com.transrowi.taller.domain.PedidoAlmacenItem;
 import com.transrowi.taller.domain.Sequence;
+import com.transrowi.taller.domain.TipoMovimientoAlmacen;
 import com.transrowi.taller.domain.UnidadMedida;
 import com.transrowi.taller.persistence.AlmacenMapper;
+import com.transrowi.taller.persistence.MovimientoAlmacenItemMapper;
+import com.transrowi.taller.persistence.MovimientoAlmacenMapper;
 import com.transrowi.taller.persistence.PedidoAlmacenItemMapper;
 import com.transrowi.taller.persistence.PedidoAlmacenMapper;
 import com.transrowi.taller.persistence.SequenceMapper;
@@ -32,6 +40,12 @@ public class AlmacenService {
 	private PedidoAlmacenMapper pedidoAlmacenMapper;
 	@Autowired
 	private PedidoAlmacenItemMapper pedidoAlmacenItemMapper;
+	@Autowired
+	private MovimientoAlmacenMapper movimientoAlmacenMapper;
+	@Autowired
+	private MovimientoAlmacenItemMapper movimientoAlmacenItemMapper;
+
+	
 	
 	public List<Item> getItemList(){
 		return almacenMapper.getItemList();
@@ -67,9 +81,57 @@ public class AlmacenService {
 		return pedidoAlmacen.getPedidoId();
 	}
 
+	@Transactional
+	public void autorizarPedidoAlmacen(PedidoAlmacen pedidoAlmacen){
+		pedidoAlmacenMapper.updatePedidoAlmacenAutorizado(pedidoAlmacen);
+		for (int i = 0; i < pedidoAlmacen.getPedidoAlmacenItems().size(); i++) {
+			PedidoAlmacenItem pedidoAlmacenItem = pedidoAlmacen.getPedidoAlmacenItems().get(i);
+			pedidoAlmacenItemMapper.updatePedidoAlmacenItemAutorizado(pedidoAlmacenItem);
+		}
+	}
 	
+	@Transactional
+	public void atenderPedidoAlmacen(PedidoAlmacen pedidoAlmacen){
+		//actualizar pedido almacen
+		pedidoAlmacenMapper.updatePedidoAlmacenAtendido(pedidoAlmacen);
+		for (PedidoAlmacenItem pedidoAlmacenItem : pedidoAlmacen.getPedidoAlmacenItems()) {
+			pedidoAlmacenItemMapper.updatePedidoAlmacenItemAtendido(pedidoAlmacenItem);
+		}
+		
+		//insert nuevo movimiento
+		
+		MovimientoAlmacen movimientoAlmacen = new MovimientoAlmacen();
+		movimientoAlmacen.setMovimientoId(Long.valueOf(getNextId("movimientonum")));
+		movimientoAlmacen.setAlmacenId(1);
+		movimientoAlmacen.setFechaMovimiento(pedidoAlmacen.getFechaAtencion());
+		movimientoAlmacen.setTipoMovimiento(TipoMovimientoAlmacen.SALIDA.getValue());
+		movimientoAlmacen.setCorrelativo(getCorrelativoMovimientoAmacen(TipoMovimientoAlmacen.ENTRADA));
+		
+		movimientoAlmacenMapper.insertMovimientoAlmacen(movimientoAlmacen);
+		for (PedidoAlmacenItem pedidoAlmacenItem : pedidoAlmacen.getPedidoAlmacenItems()) {
+				MovimientoAlmacenItem movimientoAlmacenItem = new MovimientoAlmacenItem();
+				
+				movimientoAlmacenItem.setMovimientoId(movimientoAlmacen.getMovimientoId());
+				movimientoAlmacenItem.setItemId(pedidoAlmacenItem.getItem().getItemId());
+				movimientoAlmacenItem.setUnidadMedidaId(pedidoAlmacenItem.getUnidadMedidaId());
+		}
+		
+		//update stock
+		
+	}
 	
-	//Metodos utiles
+	public Long getCorrelativoMovimientoAmacen(TipoMovimientoAlmacen tipoMovimiento) {
+		Long correlativo ;
+		correlativo = movimientoAlmacenMapper.getCorrelativo(tipoMovimiento.getValue());
+		
+		if (correlativo == null || correlativo == 0 ){
+			return 1L;
+		}
+		
+		return correlativo + 1L;
+	}
+
+	//metodo para la sequencia de id's
 	private String getNextId(String name){
 		Sequence sequence = new Sequence(name, -1L);
 		sequence = sequenceMapper.getSequence(sequence);
@@ -89,6 +151,12 @@ public class AlmacenService {
 		
 		return pedidoAlmacen;
 		
+	}
+	
+	public List<PedidoAlmacen> getPedidoAlmacenByEstado(PedidoAlmacenEstado estado){
+		
+		return pedidoAlmacenMapper.getPedidoAlmacenByEstado(estado.toString());
+	    
 	}
 	
 }

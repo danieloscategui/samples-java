@@ -17,15 +17,17 @@
 	<form:form method="post" commandName="formItem" action="addItem" >
 	<table width="45%" bgcolor="f8f8ff" border="0" cellspacing="0" cellpadding="0">
 		<tr>
-			<td colspan="2">Familia: <c:out value="${familia}"/></td>
+			<td colspan="3">Familia: <c:out value="${familia}"/></td>
 		</tr>
 		<tr>
 			<td>Codigo</td>
 			<td><form:input disabled="true" path="itemCodigo"/></td>
+			<td>&nbsp;</td>
 		</tr>
 		<tr>	
 			<td>Descripcion</td>
 			<td><form:input path="descripcion"/></td>
+			<td><form:errors path="descripcion" cssClass="error"/></td>
 		</tr>
 		<tr>
 			<td>Unidad Medida</td>
@@ -35,6 +37,7 @@
 					<form:options items="${unidadMedidaList}"  itemValue="unidadMedidaId" itemLabel="descripcion"/>
 				</form:select>
 			</td>
+			<td><form:errors path="unidadMedidaId" cssClass="error"/></td>
 		</tr>
 	</table>
 	

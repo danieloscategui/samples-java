@@ -17,15 +17,18 @@
 <form:form method="post" commandName="formFamilia" action="addFamilia">
 <table width="45%" bgcolor="f8f8ff" border="0" cellspacing="0" cellpadding="0">
 	<tr>
-		<td colspan="2">Grupo: <c:out value="${grupo}"/></td>
+		<td colspan="3">Grupo: <c:out value="${grupo}"/></td>
 	</tr>
 	<tr>
 		<td>Codigo</td>
 		<td><form:input disabled="true" path="familiaCodigo" /></td>
+		<td>&nbsp;</td>
 	</tr>
 	<tr>	
 		<td>Descripcion</td>
-		<td><form:input path="descripcion"/></td>
+		<td><form:input path="descripcion"/><td>
+		<td><form:errors path="descripcion" cssClass="error"/></td>
+		
 	</tr>
 </table>
 <input type="submit" align="center" value="Añadir Familia"/>

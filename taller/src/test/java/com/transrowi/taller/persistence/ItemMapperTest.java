@@ -14,6 +14,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.transrowi.taller.domain.Item;
+import com.transrowi.taller.domain.TipoMovimientoAlmacen;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations={"classpath:test-applicationContext.xml"})
@@ -130,5 +131,18 @@ public class ItemMapperTest {
 		BigDecimal actual = itemMapper.getInventoryQuantity(itemId);
 		log.info("actual: "+ actual);
 		Assert.assertEquals(expected, actual);
+	}
+	
+	@Test
+	public void gettipoMovimiento(){
+		log.info(TipoMovimientoAlmacen.ENTRADA.toString());
+		log.info(TipoMovimientoAlmacen.SALIDA);
+		String exp = "1";
+		String act = "1";
+		
+		if (TipoMovimientoAlmacen.ENTRADA.getValue() == 1){
+			log.info(true);
+		}
+		Assert.assertEquals(1, TipoMovimientoAlmacen.ENTRADA);
 	}
 }

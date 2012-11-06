@@ -22,7 +22,8 @@
 <div id ="QuickLink">
 	<a href="<c:url value="/" />">Home</a> | 
 	<a href="<c:url value="/catalogo/grupoList" />">Catalogo</a> | 
-	<a href="<c:url value="/almacen/createNuevoPedido" />">Crear nuevo pedido almacen</a> | 
+	<a href="<c:url value="/almacen/createNuevoPedido" />">Crear nuevo pedido almacen</a> |
+	<a href="<c:url value="/almacen/listarPedidoAlmacenPendientes" />">Ver Pedidos Pendientes</a> |  
 	 
 </div>
 <div id="Content">

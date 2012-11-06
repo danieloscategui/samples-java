@@ -17,6 +17,12 @@
 		where movimientoId = #{movimientoId}
 	</select>
 	
+	<select id="getCorrelativo" parameterType="integer" resultType="long">
+		select max(correlativo)
+		from movimientoalmacen
+		where indmovimiento = #{value} 
+	</select>
+	
 	<insert id="insertMovimientoAlmacen" parameterType="MovimientoAlmacen">
 		insert into movimientoalmacen 
 			(movimientoId, almacenId, fechaMovimiento, indMovimiento, correlativo)

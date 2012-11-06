@@ -20,10 +20,12 @@
 	<tr>
 		<td>Codigo</td>
 		<td><form:input path="grupoCodigo" disabled="true"/></td>
+		<td>&nbsp;</td>
 	</tr>
 	<tr>	
 		<td>Descripcion</td>
 		<td><form:input path="descripcion"/></td>
+		<td><form:errors path="descripcion" cssClass="error"/></td>
 	</tr>
 </table>
 <input type="submit" align="center" value="Añadir Grupo"/>

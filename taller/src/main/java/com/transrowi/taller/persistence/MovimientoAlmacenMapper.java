@@ -7,4 +7,5 @@ public interface MovimientoAlmacenMapper {
 
 	MovimientoAlmacen getMovimientoAlmacen(Long movimientoId);
 	void insertMovimientoAlmacen(MovimientoAlmacen movimientoAlmacen);
+	Long getCorrelativo(int  tipoMovimiento);
 }

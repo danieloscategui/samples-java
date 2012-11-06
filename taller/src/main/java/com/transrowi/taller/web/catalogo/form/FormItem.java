@@ -10,7 +10,7 @@ public class FormItem{
 	private int familiaId;
 	private String itemCodigo;
 	private String descripcion;
-	private int unidadMedidaId;
+	private String unidadMedidaId;
 	private List<UnidadMedida> unidadMedidaList;
 	private String precioLista;
 	
@@ -46,10 +46,10 @@ public class FormItem{
 	public void setDescripcion(String descripcion) {
 		this.descripcion = descripcion;
 	}
-	public int getUnidadMedidaId() {
+	public String getUnidadMedidaId() {
 		return unidadMedidaId;
 	}
-	public void setUnidadMedidaId(int unidadMedidaId) {
+	public void setUnidadMedidaId(String unidadMedidaId) {
 		this.unidadMedidaId = unidadMedidaId;
 	}
 	public List<UnidadMedida> getUnidadMedidaList() {

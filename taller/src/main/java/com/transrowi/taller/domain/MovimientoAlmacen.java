@@ -12,7 +12,7 @@ public class MovimientoAlmacen implements Serializable{
 	private Almacen almacen;
 	private Date fechaMovimiento;
 	private int tipoMovimiento;
-	private Integer correlativo;
+	private Long correlativo;
 	
 	public Long getMovimientoId() {
 		return movimientoId;
@@ -44,10 +44,10 @@ public class MovimientoAlmacen implements Serializable{
 	public void setTipoMovimiento(int tipoMovimiento) {
 		this.tipoMovimiento = tipoMovimiento;
 	}
-	public Integer getCorrelativo() {
+	public Long getCorrelativo() {
 		return correlativo;
 	}
-	public void setCorrelativo(Integer correlativo) {
+	public void setCorrelativo(Long correlativo) {
 		this.correlativo = correlativo;
 	}
 	@Override

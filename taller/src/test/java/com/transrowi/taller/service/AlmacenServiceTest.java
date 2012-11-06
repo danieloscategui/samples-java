@@ -15,6 +15,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.transrowi.taller.domain.Item;
+import com.transrowi.taller.domain.TipoMovimientoAlmacen;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {"classpath:test-applicationContext.xml"})
@@ -39,5 +40,22 @@ public class AlmacenServiceTest {
 		Integer sizeItemListActual = almacenService.getItemList().size();
 		
 		assertEquals(sizeItemListExpected, sizeItemListActual);
+	}
+	
+	@Test
+	public void testGetCorrelativoEntrada(){
+		log.info("testing getcorrelativo entrada");
+		Long expected = 2L;
+		Long actual = almacenService.getCorrelativoMovimientoAmacen(TipoMovimientoAlmacen.ENTRADA);
+		assertEquals(expected, actual);
+	}
+	
+	@Test
+	public void testGetCorrelativoSalida(){
+		log.info("testing getcorrelativo salida");
+		Long expected = 1L;
+		Long actual = almacenService.getCorrelativoMovimientoAmacen(TipoMovimientoAlmacen.SALIDA);
+		assertEquals(expected, actual);
+		
 	}
 }

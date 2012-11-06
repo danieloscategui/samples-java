@@ -21,6 +21,22 @@
 		where pedidoId = #{pedidoId}
 	</select>
 	
+	<select id="getPedidoAlmacenByEstado" parameterType="string" resultType="PedidoAlmacen">
+		select 
+			pedidoid,
+			fechaPedido,
+			solicitadoPor,
+			fechaAutorizacion,
+			autorizadoPor,
+			fechaAtencion,
+			atendidoPor,
+			estado,
+			observacion
+		from pedidoalmacen
+		where estado = #{value}
+		order by pedidoid desc
+	</select>
+	
 	<insert id="insertPedidoAlmacen" parameterType="PedidoAlmacen">
 		insert into pedidoalmacen
 			(pedidoid, fechaPedido, solicitadoPor, estado, observacion)

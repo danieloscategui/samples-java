@@ -2,7 +2,7 @@ package com.transrowi.taller.web.almacen;
 
 
 
-import java.util.List;
+
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -11,6 +11,7 @@ import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -19,7 +20,6 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 
 import com.transrowi.taller.domain.Cart;
-import com.transrowi.taller.domain.CartItem;
 import com.transrowi.taller.domain.Item;
 import com.transrowi.taller.service.AlmacenService;
 
@@ -32,6 +32,9 @@ public class CartController {
 	
 	@Autowired
 	private transient AlmacenService almacenService;
+	@Autowired
+	private CartValidator cartValidator;
+	
 	
 	private Cart cart = new Cart();
 
@@ -79,13 +82,15 @@ public class CartController {
 	}
 	
 	@RequestMapping (method=RequestMethod.POST, value="/cart/updateCantidadCart")
-	public String updateCantidadCart(@ModelAttribute("cart") Cart cart){
-		List<CartItem> itemList = cart.getCartItemList();
-		if(itemList != null && itemList.size() > 0){
-			for (CartItem cartItem : itemList) {
-				log.info("Item: "+cartItem.getItem().getDescripcion()+" - Cantidad: "+cartItem.getCantidad());
+	public String updateCantidadCart(@ModelAttribute("cart") Cart cart, BindingResult result){
+
+		
+		if (cart.getItemListWithCantidadZero().size() > 0 ){
+			for (Item item : cart.getItemListWithCantidadZero()) {
+				cart.removeItemById(item.getItemId());
 			}
 		}
+						
 		return VIEW_CART;
 	}
 	

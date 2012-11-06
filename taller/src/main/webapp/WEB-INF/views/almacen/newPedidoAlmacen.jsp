@@ -8,6 +8,7 @@
 		<tr>
 			<td>Solicitante</td>
 			<td><form:input path="solicitadoPor" /></td>
+			<td><form:errors path="solicitadoPor" cssClass="error"/></td>
 		</tr>
 	</table>
 	<input type="submit" value="Confirmar Pedido"/>

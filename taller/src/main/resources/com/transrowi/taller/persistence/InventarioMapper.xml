@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.transrowi.taller.persistence.AlmacenMapper">
+	<cache />
+	
+	<select id="getItem" parameterType="integer" resultType="Item">
+		select 
+			item.itemid as itemId, 
+			item.familiaid as familiaId,
+			item.itemcodigo as itemCodigo,
+			item.unidadmedidaid as unidadMedidaId,
+			unidadmedida.unidadmedidaid as "unidadMedida.unidadMedidaId",
+			unidadmedida.descripcion as "unidadMedida.descripcion",
+			unidadmedida.acronimo as "unidadMedida.acronimo",
+			item.descripcion as descripcion,
+			item.preciolista precioLista,
+			item.costounitario as costoUnitario
+		from item, unidadmedida, inventario
+		where inventario.almacenid = 1
+		and	 inventario.itemid = #{itemId} 
+		and inventario.itemid = item.itemid
+		and item.unidadmedidaid = unidadmedida.unidadmedidaid
+	
+	</select>
+	
+	<select id="getItemList" resultType="Item">
+		select 
+			item.itemid as itemId, 
+			item.familiaid as familiaId,
+			item.itemcodigo as itemCodigo,
+			item.unidadmedidaid as unidadMedidaId,
+			unidadmedida.unidadmedidaid as "unidadMedida.unidadMedidaId",
+			unidadmedida.descripcion as "unidadMedida.descripcion",
+			unidadmedida.acronimo as "unidadMedida.acronimo",
+			item.descripcion as descripcion,
+			item.preciolista precioLista,
+			item.costounitario as costoUnitario
+		from item, unidadmedida, inventario
+		where inventario.almacenid = 1
+		and inventario.itemid = item.itemid
+		and item.unidadmedidaid = unidadmedida.unidadmedidaid
+	</select>
+	
+	<select id="searchItemList" parameterType="string" resultType="Item">
+		select 
+			item.itemid as itemId, 
+			item.familiaid as familiaId,
+			item.itemcodigo as itemCodigo,
+			item.unidadmedidaid as unidadMedidaId,
+			unidadmedida.unidadmedidaid as "unidadMedida.unidadMedidaId",
+			unidadmedida.descripcion as "unidadMedida.descripcion",
+			unidadmedida.acronimo as "unidadMedida.acronimo",
+			item.descripcion as descripcion,
+			item.preciolista precioLista,
+			item.costounitario as costoUnitario
+		from item, unidadmedida, inventario
+		where inventario.almacenid = 1
+		and inventario.itemid = item.itemid
+	 	and item.unidadmedidaid = unidadmedida.unidadmedidaid
+		and lower(item.descripcion) like #{value}	
+	</select>
+	
+	
+	<select id="getInventoryQuantity" parameterType="integer" resultType="bigdecimal">
+    	select cantidad as value
+		from inventario
+		where almacenid = 1
+		and itemid = #{itemId}
+ 	 </select>
+	
+
+</mapper>

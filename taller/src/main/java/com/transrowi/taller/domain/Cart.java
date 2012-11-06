@@ -22,7 +22,7 @@ public class Cart implements Serializable{
 	private static final long serialVersionUID = -8130250415613269472L;
 	
 	private final Map<Integer, CartItem> itemMap = Collections.synchronizedMap(new HashMap<Integer, CartItem>());
-	private List<CartItem> itemList = new ArrayList<CartItem>();
+	private final List<CartItem> itemList = new ArrayList<CartItem>();
 	
 	
 	public Iterator<CartItem> getCartItems(){
@@ -32,9 +32,19 @@ public class Cart implements Serializable{
 	public List<CartItem> getCartItemList(){
 		return itemList;
 	}
-	
+	/*
 	public void setCartItemList(List<CartItem> itemlList){
 		this.itemList = itemlList;
+	}
+	*/
+	public List<Item> getItemListWithCantidadZero(){
+		List<Item> itemList = new ArrayList<Item>();
+		for (CartItem cartItem : getCartItemList()) {;
+			if (cartItem.getCantidad().equals(BigDecimal.ZERO)){
+				itemList.add(cartItem.getItem());
+			}
+		}
+		return itemList;
 	}
 	
 	public int getNumberOfItems(){

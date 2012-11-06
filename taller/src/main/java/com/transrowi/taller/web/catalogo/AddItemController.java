@@ -3,12 +3,10 @@ package com.transrowi.taller.web.catalogo;
 
 import java.util.List;
 
-import javax.servlet.http.HttpServletResponse;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -19,12 +17,11 @@ import org.springframework.web.bind.support.SessionStatus;
 import com.transrowi.taller.domain.Familia;
 import com.transrowi.taller.domain.Item;
 import com.transrowi.taller.domain.UnidadMedida;
-
-//import com.transrowi.taller.domain.UnidadMedida;
-
 import com.transrowi.taller.service.CatalogoException;
 import com.transrowi.taller.service.CatalogoService;
 import com.transrowi.taller.web.catalogo.form.FormItem;
+import com.transrowi.taller.web.catalogo.form.FormItemValidator;
+//import com.transrowi.taller.domain.UnidadMedida;
 
 @Controller
 @RequestMapping("catalogo/addItem")
@@ -33,46 +30,29 @@ public class AddItemController {
 	
 	@Autowired
 	private CatalogoService catalogoService;
-	/*
-	@ModelAttribute("formGrupo")
-	public FormGrupo createFormGrupo(){
-		return new FormGrupo();
+	@Autowired
+	private FormItemValidator itemValidator;
+	
+	
+	@ModelAttribute("unidadMedidaList")
+	public List<UnidadMedida> unidadMedidaList(){
+		return catalogoService.getUnidadMedidaList();
 	}
-	*/
-	/*
-	@RequestMapping(method=RequestMethod.GET)
-	public FormItem formBackingObject(HttpServletRequest request, 
-			@RequestParam("familiaId") String familiaId) 
-			throws ServerException{
-		FormItem formItem= new FormItem();
-		String itemCodigo = null;
-		try {
-			itemCodigo = catalogoService.generarCodigoItem(Integer.valueOf(familiaId));
-		} catch (CatalogoException e) {
-			// Se llego al maximo permitido
-			//redirect maximo permitodo
-		}
-		formItem.setFamiliaId(Integer.valueOf(familiaId));
-		formItem.setItemCodigo(itemCodigo);
-		//model.addAttribute("unidadMedidaList", catalogoService.getUnidadMedidaList());
-		formItem.setUnidadMedidaList(catalogoService.getUnidadMedidaList());
-		return formItem;
-	}
-	*/
+	
 	@RequestMapping(method=RequestMethod.GET)
 	public String loadForm(Model model, FormItem formItem, @RequestParam("familiaId")String familiaId){
 		System.out.println("load form");
+		
 		Familia familia = catalogoService.getFamilia(Integer.valueOf(familiaId));
 		String limiteMaximo = null;
-		List<UnidadMedida> unidadMedidaList = catalogoService.getUnidadMedidaList();
 		String itemCodigo = null;
 		
 		try {
 			itemCodigo = catalogoService.generarCodigoItem(Integer.valueOf(familiaId));
 			formItem.setFamiliaId(Integer.valueOf(familiaId));
 			formItem.setItemCodigo(itemCodigo);
-			model.addAttribute(unidadMedidaList);
 			model.addAttribute("familia", familia.getDescripcion());
+			
 		} catch (CatalogoException e) {
 			limiteMaximo = "Se ha llegado al maximo de items permitidos para la familia "+familia.getDescripcion();
 			model.addAttribute("limiteMaximo", limiteMaximo);
@@ -84,8 +64,19 @@ public class AddItemController {
 	}
 	
 	@RequestMapping(method=RequestMethod.POST)
-	public String processSubmit(@ModelAttribute("formItem") FormItem formItem, SessionStatus status){
+	public String processSubmit(
+							Model model,
+							@ModelAttribute("formItem") FormItem formItem, 
+							SessionStatus status,
+							BindingResult result){
 		System.out.println("process submit");
+		
+		itemValidator.validate(formItem, result);
+		if (result.hasErrors()){
+			Familia familia = catalogoService.getFamilia(formItem.getFamiliaId());
+			model.addAttribute("familia", familia.getDescripcion());
+			return "catalogo/addItem";
+		}
 		
 		//here implementar validaciones
 		Item item= new Item();
@@ -94,11 +85,12 @@ public class AddItemController {
 		item.setDescripcion(formItem.getDescripcion().toUpperCase());
 		item.setFamiliaId(formItem.getFamiliaId());
 		item.setItemCodigo(formItem.getItemCodigo());
-		item.setUnidadMedidaId(formItem.getUnidadMedidaId());
+		item.setUnidadMedidaId(Integer.valueOf(formItem.getUnidadMedidaId()));
 
 		catalogoService.insertItem(item);
 		
 		status.setComplete();
+		
 		return "redirect:/catalogo/verItems?familiaId="+item.getFamiliaId();
 	}
 	

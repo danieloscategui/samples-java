@@ -195,3 +195,7 @@ tbody tr:hover { background:#99BCBF;
 	margin-right: 2ex;
 	color: #000;
 }
+
+.error {
+	color: #DD4B39;
+}
